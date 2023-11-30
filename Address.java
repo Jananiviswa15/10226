@@ -1,15 +1,34 @@
-package OrmProjects.FirstProject;
+package com.example.hibernate.programs.hibernate_programs;
 
-import jakarta.persistence.Embeddable;
-@Embeddable
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Address {
 
-	private String streetName;
-	public void setStreetName(String streetName) {
-		this.streetName = streetName;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer adrsId;
+	private String streetname;
+	private String city;
+	public Integer getAdrsId() {
+		return adrsId;
 	}
-	public void setDistricName(String districName) {
-		this.districName = districName;
+	public void setAdrsId(Integer adrsId) {
+		this.adrsId = adrsId;
 	}
-	private String districName;
+	public String getStreetname() {
+		return streetname;
+	}
+	public void setStreetname(String streetname) {
+		this.streetname = streetname;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
 }

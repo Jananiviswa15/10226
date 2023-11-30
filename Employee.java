@@ -1,49 +1,65 @@
-package OrmProjects.FirstProject;
+package com.example.hibernate.programs.hibernate_programs;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
-@Entity(name = "new value")
-@Table(name = "new value")
+@Entity
 public class Employee {
 
-	
 	@Id
-	//4 ways auto identity sequence table
-	private int empId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//primary key genr by db --> 1and inc by 1
+	private Integer empId;
 	
-	@Column(nullable = false)  //not null
+	@Column(name = "emp_name", length = 20, nullable = false)
 	private String name;
 	
-	//private String streetName;
-	//private String districName;
+	@Column(name = "emp_email", length = 20, nullable = false, unique  = true)
+	private String email;
 	
-	//@Embedded
-	private Address adrs;
-	@Column(unique = true)
-	private String emailId;
-	
-	@Transient
-	private int salary;
-	
-	
-	@Column(name = "empAge")
-	private int age;
-	
-	@Column(name = "empGender")
-	private String gender;
-	
-	public Employee(int id, String name, int age, String gender, String emailId) {
-		super();
-		this.emailId = emailId;
-		this.name = name;
-		this.age = age;
-		this.gender = gender;
-		this.empId = id;
+	//private EducationQual eduDetails (cascade = CascadeType.PERSIST)//if u save emp obj i ll auto save adrs obj
+
+	@OneToOne(cascade = CascadeType.PERSIST)//if u save emp obj i ll auto save adrs obj
+	@JoinColumn(name = "foreignKey")
+	private Address permantAdrs;  //permantAdrs_adrsId
+	public Integer getEmpId() {
+		return empId;
 	}
+
+	public void setEmpId(Integer empId) {
+		this.empId = empId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Address getPermantAdrs() {
+		return permantAdrs;
+	}
+
+	public void setPermantAdrs(Address permantAdrs) {
+		this.permantAdrs = permantAdrs;
+	}
+	
+	
+	
 }

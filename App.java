@@ -1,7 +1,8 @@
-package OrmProjects.FirstProject;
+package com.example.hibernate.programs.hibernate_programs;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 /**
@@ -10,29 +11,42 @@ import org.hibernate.cfg.Configuration;
  */
 public class App 
 {
-	public static void main( String[] args )
-	{
-		System.out.println( "Hello World!" );
-		Employee emp1 = new Employee(121,"hello", 23,"f","duplicate");  //object , Transient object
-		Employee emp2 = new Employee(1,"hello", 23,"f", "dup licate"); 
-		//Employee emp3 = new Employee(47,"hello344", 3,"m",4545);
-		//Employee emp4 = new Employee(46,"hello344", 21,"m",34545);
-
-		//Configuration config = new Configuration().configure("filename.xml");
-		Configuration config = new Configuration().configure().addAnnotatedClass(Employee.class);
-		//config --> 
-		SessionFactory sessionFact =  config.buildSessionFactory();
-		Session session =  sessionFact.openSession();
-		session.beginTransaction(); //i am gng to commun with db
-		session.persist(emp1);  //persistent stae
-		session.persist(emp2);
-	int empid = 	(int) session.save(emp1); //return inserted primary key of the record
-	System.out.println(empid);
-		//session.persist(emp2);
-		//session.persist(emp3);
-		//session.persist(emp4);
+    public static void main( String[] args )
+    {
+    	Session session = createConnection();
+    	Employee catchEmpObj = createEmployeeObjects();
+    	saveEmployeeDetails(session, catchEmpObj);
+    	
+    }
+    private static void saveEmployeeDetails(Session session, Employee catchEmpObj) {
+		session.beginTransaction();
+		//Integer insertedKey = (Integer) session.save(catchEmpObj);
+	/*	session.save(catchEmpObj);  //saving emp
+		session.save(catchEmpObj.getPermantAdrs()); //save adrs*/
+		
+		//cascade type 
+		session.persist(catchEmpObj);
 		session.getTransaction().commit();
-		session.close();
 		
 	}
+	private static Employee createEmployeeObjects() {
+		
+		//scanner class
+    	Employee empObj = new Employee();
+    	empObj.setEmail("janani@gmail.com");
+    	empObj.setName("janani");
+    	
+    	Address adrs = new Address();
+    	adrs.setCity("blre");
+    	adrs.setStreetname("dkljfkdf");
+    	empObj.setPermantAdrs(adrs);  //employee + adrs details
+    	return empObj;
+	}
+	private static Session createConnection() {
+		Configuration config = new Configuration().configure().addAnnotatedClass(Employee.class).addAnnotatedClass(Address.class);;
+		SessionFactory sessionFact =  config.buildSessionFactory();
+		Session session =  sessionFact.openSession();
+		return session;
+	}
 }
+
