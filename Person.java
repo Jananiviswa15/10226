@@ -1,32 +1,38 @@
-package OrmProjects.FirstProject;
+package Day2;
 
-import org.hibernate.annotations.DynamicUpdate;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-
-@Entity
-@DynamicUpdate//update query is framed only for the column where the val got changed
 public class Person {
-	
-	@Id
-	private int personId;
-	
-	@Override
-	public String toString() {
-		return "Person [personId=" + personId + ", name=" + name + ", location=" + location + "]";
-	}
-	public void setPersonId(int personId) {
-		this.personId = personId;
+
+	Person(){
+		System.out.println("person obj");
 	}
 	private String name;
+	public String getName() {
+		return name;
+	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public void setLocation(String location) {
-		this.location = location;
+	public HouseAddress getAdrs() {
+		return adrs;
 	}
-	private String location;
-
+	public void setAdrs(HouseAddress adrs) {
+		this.adrs = adrs;
+	}
+	private HouseAddress adrs;   //new HouseAddress() 
 	
+	private OfficeAddress ofcAdrs;  //new OfficeAddress();
+	
+	public OfficeAddress getOfcAdrs() {
+		return ofcAdrs;
+	}
+	
+	public void setOfcAdrs(OfficeAddress ofcAdrs) {
+		this.ofcAdrs = ofcAdrs;
+	}
+	void display() {
+		System.out.println(name);
+		adrs.displayAdrs();
+		ofcAdrs.displayAdrs();
+		
+	}
 }

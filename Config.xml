@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="houseAdrs" class="Day2.HouseAddress">
+		<property name="doorNum" value="18"></property>
+		<property name="street" value="house"></property>
+	</bean>
+
+	<bean id="ofcAdrsObj" class="Day2.OfficeAddress">
+
+		<property name="doorNum" value="19"></property>
+		<property name="street" value="office"></property>
+	</bean>
+
+	<bean id="personObj" class="Day2.Person">
+		<property name="name" value="vaibhav"></property>
+		<property name="adrs" ref="houseAdrs">
+			<!-- <bean class="Day2.HouseAddress" /> -->
+		</property>
+		<property name="ofcAdrs" ref="ofcAdrsObj"></property>
+	</bean>
+
+	<bean id="personObj1" class="Day2.Person">
+		<property name="name" value="workingProfee"></property>
+		<property name="adrs" ref="houseAdrs">
+			<!-- <bean class="Day2.HouseAddress" /> -->
+		</property>
+		<property name="ofcAdrs"  ref="ofcAdrsObj">
+			<!-- <bean class="Day2.OfficeAddress" /> -->
+			
+		</property>
+	</bean>
+</beans>
